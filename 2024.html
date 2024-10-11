@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>首页界面</title>
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/down.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 </head>
@@ -23,10 +24,11 @@
             <p class="color_font"><small>2023-2025QS World University Rankings</small></p>
         </div>
         <div class="right nav text_right">
-            <ul> <li><i class="nav_7"></i><a href="index.html">2025</a> </li>
+            <ul>
+                <li><i class="nav_7"></i><a href="index.html">2025</a> </li>
                 <li class="nav_active"><i class="nav_7"></i><a href="2024.html">2024</a> </li>
                 <li><i class="nav_7"></i><a href="2023.html">2023</a> </li>
-            </ul>
+            </ul>s
         </div>
     </header>
 
@@ -45,9 +47,9 @@
             <div class="left div_any01">
                 <div class="div_any_child">
                     <div class="div_any_title" style="font-size: 10px;"><img src="img/nav_3.png">QS前1000学校各洲占比图 </div>
-                    <canvas id="continentPieChart" width="400" height="400" ></canvas>
+                    <canvas id="continentPieChart" width="400" height="400"></canvas>
                     <!-- <p id="char1" class="p_chart"></p> -->
-                </div> 
+                </div>
                 <br>
                 <div class="div_any_child">
                     <div class="div_any_title"><img src="img/title_2.png">评分指标雷达图 </div>
@@ -55,7 +57,7 @@
                     <!-- <p id="char2" class="p_chart"></p> -->
                 </div>
             </div>
-           
+
             <div class="div_any02 left ">
                 <div class="div_any_child div_height">
                     <div class="div_any_title any_title_width"><img src="img/title_3.png">地图（Map） </div>
@@ -65,14 +67,14 @@
 
             <div class="right div_any01">
                 <div class="div_any_child">
-                    <div class="div_any_title" style="font-size: 14px;"><img src="img/title_4.png">师资力量评价气泡图 </div>
+                    <div class="div_any_title" style="font-size: 14px;"><img src="img/title_4.png"> <abbr title="X:师生比  Y：每位教员应用率  R：(['学术声誉'] / 100) * 5  R最小设置为2"> 师资力量评价气泡图</abbr> </div>
                     <br>
                     <canvas id="scatterChart12024" width="400" height="400"></canvas>
                     <!-- <p id="char3" class="p_chart"></p> -->
                 </div>
                 <br>
                 <div class="div_any_child">
-                    <div class="div_any_title" style="font-size: 14px;"><img src="img/title_5.png">国际化评价气泡图 </div>
+                    <div class="div_any_title" style="font-size: 14px;"><img src="img/title_5.png"><abbr title="R：(1000-['大学排名']) / 200    R最小设置为2">国际化评价气泡图</abbr> </div>
                     <br>
                     <canvas id="scatterChart22024" width="400" height="400"></canvas>
                     <!-- <p id="char4" class="p_chart"></p> -->
@@ -163,50 +165,70 @@
             </div>
         </div>
     </div>
+
+    <!-- 在body标签的闭合之前添加页脚 -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+
+                </div>
+            </div>
+            <hr> <!-- 可选，添加一条水平线分隔内容 -->
+            <div class="footer-copyright">
+                <br>
+                <a href="https://www.topuniversities.com/university-rankings"
+                    style="color: rgba(244, 229, 12, 0.939); text-decoration: none;">资料来源</a>
+                <br>
+                <br>
+                <p>&copy; 2024 北京大学暑期学校数据可视化 - 小组成员：陈柯君 张若楠 谭懋婷 袁宗豪</p>
+            </div>
+        </div>
+    </footer>
     <script src="js/jquery/jQuery-2.2.0.min.js"></script>
     <script src="json/qs2024.js"></script>
     <script>
         // 动态生成表格内容的通用函数
         function populateTable(data, tableId) {
-        var $tbody = $('#' + tableId + ' > tbody');
-        $tbody.empty(); // 清空现有的表格内容
-    
-        data.forEach(function(university) {
-            // 创建排名和大学名称列
-            var $row = $('<tr>')
-                .append($('<td>').text(university.指数))
-                .append($('<td>').text(university.机构名称));
-    
-            // 检查是否是世界排名表格，如果是，则在第二列后添加地区列
-            if (tableId === 'worldRankingTable') {
-                $row.append($('<td>').text(university.地区));
-            }
-    
-            // 添加得分列
-            $row.append($('<td>').text(university.总体得分));
-    
-            // 将新行添加到表格的tbody中
-            $tbody.append($row);
-        });
-    }
+            var $tbody = $('#' + tableId + ' > tbody');
+            $tbody.empty(); // 清空现有的表格内容
+
+            data.forEach(function (university) {
+                // 创建排名和大学名称列
+                var $row = $('<tr>')
+                    .append($('<td>').text(university.指数))
+                    .append($('<td>').text(university.机构名称));
+
+                // 检查是否是世界排名表格，如果是，则在第二列后添加地区列
+                if (tableId === 'worldRankingTable') {
+                    $row.append($('<td>').text(university.地区));
+                }
+
+                // 添加得分列
+                $row.append($('<td>').text(university.总体得分));
+
+                // 将新行添加到表格的tbody中
+                $tbody.append($row);
+            });
+        }
         // 当DOM加载完成后，动态生成表格内容
-        $(document).ready(function() {
-            populateTable(qs2024.slice(0, 100), 'worldRankingTable'); 
-            populateTableByRegion('美洲', 'americasRankingTable'); 
-            populateTableByRegion('欧洲', 'europeRankingTable'); 
-            populateTableByRegion('亚洲', 'asiaRankingTable'); 
+        $(document).ready(function () {
+            populateTable(qs2024.slice(0, 100), 'worldRankingTable');
+            populateTableByRegion('美洲', 'americasRankingTable');
+            populateTableByRegion('欧洲', 'europeRankingTable');
+            populateTableByRegion('亚洲', 'asiaRankingTable');
         });
-    
+
         // 动态生成表格内容的通用函数
         function populateTableByRegion(region, tableId) {
-            var filteredData = qs2024.filter(function(university) {
+            var filteredData = qs2024.filter(function (university) {
                 return university["地区"] === region;
             });
             var top100 = filteredData.slice(0, 111);
             populateTable(top100, tableId);
         }
     </script>
-    
+
 
 
 
@@ -220,7 +242,7 @@
     <script src="js/base.js"></script>
     <script src="js/index.js"></script>
     <script type="text/javascript"
-        src="https://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>
+        src="http://api.map.baidu.com/api?v=2.0&ak=5ieMMexWmzB9jivTq6oCRX9j&callback"></script>
     <script src="js/map.js"></script>
 </body>
 

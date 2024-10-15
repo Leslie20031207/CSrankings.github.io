@@ -1,6 +1,6 @@
 /* 设置页脚的基本样式 */
 .site-footer {
-    background-color: #333; /* 背景颜色 */
+    background-color: #060629; /* 背景颜色 */
     color: white; /* 文字颜色 */
     padding: 20px 0; /* 垂直内边距和水平内边距 */
     font-size: 14px; /* 字体大小 */
@@ -15,12 +15,12 @@
 
 /* 页脚版权信息的样式 */
 .footer-copyright {
-    margin-top: 10px; /* 与上方内容的边距 */
+    margin-top: 13px; /* 与上方内容的边距 */
 }
 
 /* 可选，如果你使用了<hr>添加一条水平线 */
 .site-footer hr {
-    border-color: #555; /* 线条颜色 */
+    border-color: #060629; /* 线条颜色 */
     margin: 10px 0; /* 线条与内容的边距 */
 }
 
